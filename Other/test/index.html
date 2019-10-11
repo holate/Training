@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>接口调试</title>
+    <script type="application/javascript" src="axios.min.js"></script>
+    <script type="application/javascript" src="jquery-3.2.1.js"></script>
+    <style type="text/css">
+        * {
+            font-family: Consolas;
+        }
+
+        html {
+            width: 100%;
+            height: 100%;
+            overflow-x: hidden;
+            overflow-y: hidden;
+        }
+
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 0;
+            background: #2b2b2b;
+            color: #cb6c2f;
+        }
+
+        table {
+            width: 90%;
+            height: 90%;
+            border-collapse: collapse;
+        }
+
+        table tr {
+        }
+
+        table tr td {
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            border: 1px solid #cb6c2f;
+        }
+
+        /*https://alfred-sun.github.io/blog/2014/12/24/scrollbar-customized-with-css-style*/
+        ::-webkit-scrollbar {
+            width: 4px;
+            background: #cb6c2f;
+        }
+
+        ::-webkit-scrollbar-button {
+            height: 0;
+        }
+
+        ::-webkit-scrollbar-corner {
+            height: 0;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #cb9f15;
+            border-radius: 4px;
+        }
+
+        ::-webkit-resizer {
+            height: 0;
+        }
+
+        select, textarea {
+            resize: none;
+            overflow-x: hidden;
+            width: 100%;
+            color: #cb6c2f;
+            border: 1px solid #cb6c2f;
+            margin: 0;
+            padding: 0;
+            font-size: medium;
+            background: #2b2b2b;
+            height: 100%;
+        }
+
+        td {
+            margin: 0 auto;
+        }
+
+        input {
+            background: #5e6061;
+            margin: 0;
+            padding: 0;
+            width: 45%;
+            border: 0;
+            height: 90%;
+            color: #cb6c2f;
+        }
+
+        div {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+    <script type="application/javascript">
+        $(document).ready(function () {
+            $("#send").click(function () {
+                var url = $("#url").val();
+                var requestType = $("#requestType").val();
+                var requestJson = $("#requestJson").val();
+                $("#responseJson").html('');
+                $("#responseCode").html('');
+                $("#errorInfo").html('');
+                if (!requestType) {
+                    alert('请求方式错误!');
+                    return;
+                }
+                else if (!url) {
+                    alert('接口url错误!');
+                    return;
+                }
+                var data;
+                try {
+                    data = JSON.parse(requestJson);
+                    axios({
+                        method: requestType,
+                        url: url,
+                        data: data
+                    }).then(function (response) {
+                        var data = response.data;
+                        $("#responseJson").html(JSON.stringify(data));
+                        $("#responseCode").html(response.status);
+                    }).catch(function (error) {
+                        $("#errorInfo").html(error);
+                    });
+                }
+                catch (e) {
+                    alert("请求体转换为json失败:" + e);
+                }
+            });
+        });
+
+        function login() {
+            var userName = prompt("用户名:", "");
+            var userPassWordHash = prompt("密码:", "");
+            axios({
+                method: "PUT",
+                url: "/api/user/login.do",
+                data: {userName: userName, passWord: userPassWordHash}
+            }).then(function (response) {
+                var data = response.data;
+                if (data["ok"]) {
+                    alert("登录成功");
+                    $("#responseJson").html(JSON.stringify(data));
+                }
+                else {
+                    alert(data['msg'])
+                    $("#errorInfo").html(data['msg']);
+                }
+                $("#responseCode").html(response.status);
+            }).catch(function (error) {
+                $("#errorInfo").html(error);
+            });
+        }
+    </script>
+</head>
+<body>
+<table>
+    <caption>接口调试</caption>
+    <tr>
+        <td width="15%">接口url:</td>
+        <td width="85%"><textarea id="url">/api/</textarea></td>
+    </tr>
+    <tr>
+        <td>请求类型:</td>
+        <td>
+            <select id="requestType">
+                <option value="PUT">PUT</option>
+                <option value="POST">POST</option>
+                <option value="DELETE">DELETE</option>
+                <option value="GET">GET</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td>请求体:</td>
+        <td>
+            <textarea id="requestJson">{}</textarea>
+        </td>
+    </tr>
+    <tr>
+        <td width="100%" colspan="2">
+            <input type="button" value="发送" id="send"/>
+            <input type="button" value="快速登录" onclick="login();"/>
+        </td>
+    </tr>
+    <tr>
+        <td>响应码:</td>
+        <td>
+            <div id="responseCode"></div>
+        </td>
+    </tr>
+    <tr>
+        <td>响应体:</td>
+        <td>
+            <textarea id="responseJson" disabled></textarea>
+        </td>
+    </tr>
+    <tr>
+        <td>错误信息:</td>
+        <td>
+            <textarea id="errorInfo" disabled></textarea>
+        </td>
+    </tr>
+</table>
+</body>
+</html>
