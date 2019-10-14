@@ -1,5 +1,5 @@
-#CMD
-#cmd部分命令
+# CMD
+# cmd部分命令
 ```
 新建文件: type nul>filename
 查看文件列表: dir

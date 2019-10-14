@@ -1,20 +1,18 @@
-#第3章 SQL语句
-##3.1 SQL概述
-###SQL语句分类
+# 第3章 SQL语句
+## 3.1 SQL概述
+### SQL语句分类
 数据定义语言：简称DDL(Data Definition Language)，用来定义数据库对象：数据库，表，列等。关键字：create，alter，drop等
 数据操作语言：简称DML(Data Manipulation Language)，用来对数据库中表的记录进行更新。关键字：insert，delete，update等
 数据控制语言：简称DCL(Data Control Language)，用来定义数据库的访问权限和安全级别，及创建用户。
 数据查询语言：简称DQL(Data Query Language)，用来查询数据库中表的记录。关键字：select，from，where等
-###SQL通用语法
+### SQL通用语法
 SQL语句可以单行或多行书写，以分号结尾
 可使用空格和缩进来增强语句的可读性
 MySQL数据库的SQL语句不区分大小写，关键字建议使用大写,例如：SELECT * FROM user。
 同样可以使用/**/的方式完成注释
 MySQL常使用数据类型
-
-
-##3.2 DDL之数据库操作：database
-###创建数据库
+## 3.2 DDL之数据库操作：database
+### 创建数据库
 ```mysql
 /*我们1*/
 #都是
@@ -30,7 +28,7 @@ CREATE DATABASE webdb_1;
 #创建数据库 并指定数据库中数据的编码
 CREATE DATABASE webdb_2 CHARACTER SET utf8;
 ```
-###查看数据库
+### 查看数据库
 ```mysql
 -- 查看数据库MySQL服务器中的所有的数据库:
 show databases;
@@ -38,7 +36,7 @@ show databases;
 #查看某个数据库的定义的信息:
 show create database 数据库名称;
 ```
-###删除数据库
+### 删除数据库
 ```mysql
 -- 数据库不存在则报错
 DROP DATABASE 数据库名称;
@@ -46,7 +44,7 @@ DROP DATABASE 数据库名称;
 -- 判断数据库存在才删除（建议使用）:
 DROP DATABASE IF EXISTS 数据库名称;
 ```
-###使用数据库
+### 使用数据库
 ```mysql
 -- 查看正在使用的数据库:
 select database();
@@ -54,8 +52,8 @@ select database();
 -- 切换数据库：
 use 数据库名;
 ```
-##3.3 DDL之表操作：table
-###创建表
+## 3.3 DDL之表操作：table
+### 创建表
 格式：
 ```mysql
 create table 表名(
@@ -82,7 +80,7 @@ cid INT primary key, #分类ID
 cname VARCHAR(100) #分类名称
 );
 ```
-###查看表
+### 查看表
 ```mysql
 -- 查看数据库中的所有表：
 show tables;
@@ -91,14 +89,14 @@ desc 表名;
 -- 例如：
 desc category;
 ```
-###删除表
+### 删除表
 ```mysql
 -- 数据表不存在则报错
 drop table 表名;
 -- 判断数据表存在才删除（建议使用）:
 drop table IF EXISTS 数据表名称;
 ```
-###修改表结构格式
+### 修改表结构格式
 ```mysql
 -- 添加列
 alter table 表名 add 列名 类型(长度) [约束];
@@ -130,8 +128,8 @@ alter table 表名 character set 字符集;
 #例如：为分类表 category 的编码表进行修改，修改成 gbk
 ALTER TABLE category CHARACTER SET gbk;
 ```
-##3.4 DML数据操作语言
-###插入表记录：insert
+## 3.4 DML数据操作语言
+### 插入表记录：insert
 ```mysql
 -- 向表中插入某些字段
 insert into 表 (字段1,字段2,字段3..) values (值1,值2,值3..);
@@ -151,7 +149,7 @@ INSERT INTO category(cname,cid) VALUES('耗材','c006');
 # 除了数值类型外，其它的字段类型的值必须使用引号引起。（建议单引号）
 # 如果要插入空值，可以不写字段，或者插入null。
 ```
-###更新表记录：update
+### 更新表记录：update
 ```mysql
 -- 更新所有记录的指定字段
 update 表名 set 字段名=值,字段名=值,...;
@@ -170,15 +168,15 @@ INSERT INTO category(cname,cid) VALUES('耗材','c006');
 # 修改值得时候不能超过最大长度.
 # 除了数值类型外，其它的字段类型的值必须使用引号引起
 ```
-###删除记录：delete
+### 删除记录：delete
 ```mysql
 -- 删除表中所有记录（表还在）
 delete from 表名;
 -- 删除符合条件的指定记录
 delete from 表名 where 条件;
 ```
-#第4章 SQL约束
-##4.1 主键约束
+# 第4章 SQL约束
+## 4.1 主键约束
 PRIMARY KEY 约束唯一标识数据库表中的每条记录。
 
 主键必须包含唯一的值。
@@ -187,7 +185,7 @@ PRIMARY KEY 约束唯一标识数据库表中的每条记录。
 
 每个表都应该有一个主键，并且每个表只能有一个主键。
 
-###添加主键约束
+### 添加主键约束
 ```mysql
 # 创建表时，在字段描述处，声明指定字段为主键
 # 创建表时，在constraint约束区域，声明指定字段为主键
@@ -203,11 +201,11 @@ city varchar(255)，
 );
 -- ALTER TABLE persons ADD PRIMARY KEY (id_p)
 ```
-###删除主键约束
+### 删除主键约束
 ```mysql
 ALTER TABLE persons DROP PRIMARY KEY
 ```
-##4.2 自动增长列
+## 4.2 自动增长列
 我们通常希望在每次插入新记录时，数据库自动生成字段的值。我们可以在表中使用 auto_increment（自动增长列）关键字，自动增长列类型必须是整形，自动增长列必须为键(一般是主键)。
 
 下列 SQL 语句把 "persons" 表中的 "p_id" 列定义为 auto_increment 主键
@@ -233,17 +231,17 @@ ALTER TABLE persons AUTO_INCREMENT=100
 delete 一条一条删除，不清空auto_increment记录数。
 truncate 直接将表删除，重新建表，auto_increment将置为零，从新开始。
 ```
-##4.3 非空约束
+## 4.3 非空约束
 ```
 NOT NULL 约束强制列不接受 NULL 值。
 NOT NULL 约束强制字段始终包含值。这意味着，如果不向字段添加值，就无法插入新记录或者更新记录。
 ```
-##4.4 唯一约束
+## 4.4 唯一约束
 UNIQUE 约束唯一标识数据库表中的每条记录。 UNIQUE 和 PRIMARY KEY 约束均为列或列集合提供了唯一性的保证。 PRIMARY KEY 拥有自动定义的 UNIQUE 约束。
 
 请注意，每个表可以有多个 UNIQUE 约束，但是每个表只能有一个 PRIMARY KEY 约束。
 
-##4.5 默认约束
+## 4.5 默认约束
 对列添加默认约束,若不写入该列值,则使用默认值。
 ```mysql
 CREATE TABLE persons11(
@@ -257,8 +255,8 @@ CREATE TABLE persons11(
     city VARCHAR(10) DEFAULT '北京'
 );
 ```
-#第五章 DQL语句
-##5.1 DQL准备工作
+# 第五章 DQL语句
+## 5.1 DQL准备工作
 ```mysql
 
 #创建商品表：
@@ -289,7 +287,7 @@ select [distinct]
 from 表
 where 条件
 ```
-##5.2 简单查询
+## 5.2 简单查询
 练习：
 ```mysql
 #查询所有的商品.
@@ -305,7 +303,7 @@ select distinct price from product;
 #查询结果是表达式（运算查询）：将所有商品的价格+10元进行显示.
 select pname,price+10 from product;
 ```
-##1.3 条件查询
+## 1.3 条件查询
 练习：
 ```mysql
 #查询商品名称为“花花公子”的商品所有信息：
@@ -335,7 +333,7 @@ SELECT * FROM product WHERE category_id IS NULL
 #查询有分类的商品
 SELECT * FROM product WHERE category_id IS NOT NULL
 ```
-##5.4 排序查询
+## 5.4 排序查询
 通过order by语句，可以将查询出的结果进行排序。暂时放置在select语句的最后。
 
 格式:
@@ -353,7 +351,7 @@ SELECT * FROM product ORDER BY price DESC,category_id DESC;
 #显示商品的价格(去重复)，并排序(降序)
 SELECT DISTINCT price FROM product ORDER BY price DESC;
 ```
-##5.5 聚合查询
+## 5.5 聚合查询
 之前我们做的查询都是横向查询，它们都是根据条件一行一行的进行判断，而使用聚合函数查询是纵向查询，它是对一列的值进行计算，然后返回一个单一的值；另外聚合函数会忽略空值。
 
 今天我们学习如下五个聚合函数：
@@ -376,7 +374,7 @@ SELECT AVG(price) FROM product WHERE category_id = 'c002';
 #查询商品的最大价格和最小价格
 SELECT MAX(price),MIN(price) FROM product;
 ```
-##5.6 分组查询
+## 5.6 分组查询
 分组查询是指使用group by字句对查询信息进行分组。
 
 格式：
@@ -396,8 +394,8 @@ SELECT category_id ,COUNT(*) FROM product GROUP BY category_id ;
 #统计各个分类商品的个数,且只显示个数大于1的信息
 SELECT category_id ,COUNT(*) FROM product GROUP BY category_id HAVING COUNT(*) > 1;
 ```
-#第六章 多表操作
-##6.1 表与表之间的关系
+# 第六章 多表操作
+## 6.1 表与表之间的关系
 ```
 一对多关系：
 常见实例：客户和订单，分类和商品，部门和员工.
@@ -408,7 +406,7 @@ SELECT category_id ,COUNT(*) FROM product GROUP BY category_id HAVING COUNT(*) >
 一对一关系：(了解)
 在实际的开发中应用不多.因为一对一可以创建成一张表.
 ```
-##6.2 外键约束
+## 6.2 外键约束
 ```
 有两张表“分类表”和“商品表”，为了表明商品属于哪个分类，通常情况下，我们将在商品表上添加一列，用于存放分类cid的信息，此列称为：外键。
 此时“分类表category”称为：主表，“cid”我们称为主键。“商品表products”称为：从表，category_id称为外键。我们通过主表的主键和从表的外键来描述主外键关系，呈现就是一对多关系。
@@ -427,7 +425,7 @@ alter table 从表 drop foreign key 外键名称;
 ```
 使用外键目的：
 保证数据完整性
-##6.2 一对多操作
+## 6.2 一对多操作
 category分类表，为一方，也就是主表，必须提供主键cid
 
 products商品表，为多方，也就是从表，必须提供外键category_id
@@ -458,7 +456,7 @@ INSERT INTO products (pid ,pname ,category_id) VALUES('p003','商品名称2','c9
 #5 删除指定分类(分类被商品使用) -- 执行异常
 DELETE FROM category WHERE cid = 'c001';
 ```
-##6.3 多对多
+## 6.3 多对多
 ```
 商品和订单多对多关系，将拆分成两个一对多。
 products商品表，为其中一个一对多的主表，需要提供主键pid
@@ -503,8 +501,8 @@ INSERT INTO orderitem(pid,oid) VALUES('p002','x002');
 #5删除商品表的数据(外键存在，添加失败)
 DELETE FROM products WHERE pid = 'p003';
 ```
-#第七章 多表查询
-##7.1 初始化表结构
+# 第七章 多表查询
+## 7.1 初始化表结构
 ```mysql
 # 分类表
 CREATE TABLE category (
@@ -537,7 +535,7 @@ INSERT INTO products (pid, pname,price,flag,category_id) VALUES('p007','劲霸',
 INSERT INTO products (pid, pname,price,flag,category_id) VALUES('p008','香奈儿',800,'1','c003');
 INSERT INTO products (pid, pname,price,flag,category_id) VALUES('p009','相宜本草',200,'1','c003');
 ```
-##7.2 多表查询
+## 7.2 多表查询
 1. 交叉连接查询(基本不会使用-得到的是两个表的乘积) [了解]
 
 语法： select * from A,B;
@@ -559,13 +557,13 @@ SELECT DISTINCT c.cname FROM category c INNER JOIN products p ON c.cid = p.categ
 select * from A left outer join B on 条件;
 右外连接：right outer join
 select * from A right outer join B on 条件;
-```
 
 #2.查询所有分类商品的个数
 #左外连接
 INSERT INTO category(cid,cname) VALUES('c004','奢侈品');
 SELECT cname,COUNT(category_id) FROM category c LEFT OUTER JOIN products p ON c.cid = p.category_id GROUP BY cname;
-##7.3 子查询
+```
+## 7.3 子查询
 ```mysql
 # 一条select语句结果作为另一条select语法一部分（查询条件，查询结果，表等）。
 #子查询, 查询“化妆品”分类上架商品详情
