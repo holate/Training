@@ -1,7 +1,6 @@
 # 实训仓库
 ****
 # 待看
-+ [多线程](https://blog.csdn.net/xlgen157387/article/details/77920497)
 + [java一文秒懂专栏](https://www.twle.cn/c/yufei/javatm/javatm-basic-executorservice.html)
 # 收藏
 [简单教程](https://www.twle.cn)
