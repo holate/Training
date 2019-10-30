@@ -14,13 +14,13 @@
 + 3.model中的数据迭代
 使用th:each来循环迭代，如
 ```js
-<li class="list-group-item" th:each="person:${people}">
-                <span class="span2" th:text="${person.userName}"></span>
-                <span class="span2" th:text="${person.age}"></span>
-                <button class="btn btn-info" th:onclick="getName([[${person.userName}]],[[${person.age}]],this);">
-                    获取用户信息
-                </button>
-</li>
+<tr th:each="room:${data.map.get('rooms')}">
+    <td th:text="${room.roomname}"></td>
+    <td th:text="${room.description}"></td>
+    <td th:text="${room.location}"></td>
+    <td th:text="${room.star}"></td>
+    <td th:text="${room.price}"></td>
+</tr>
 ```
 person作为迭代元素来使用，这样在下面的元素中就可以通过${person.*}来获取对象的属性了。
 
