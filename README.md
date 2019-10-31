@@ -5,13 +5,9 @@
 # 收藏
 [简单教程](https://www.twle.cn)
 # 小tips
-+ 生成范围内唯一随机数
-```java
-ThreadLocalRandom.current().ints(1,31).distinct().forEach(System.out::println);
-new Random().ints(1, 31).distinct().forEach(System.out::println);
-```
+[java小技巧](./编程/java基础/小技巧.md)
 # 其他学习
-+ [git使用](./Other/git使用.md)
-+ [cmd使用](./Other/cmd使用.md)
-+ [markdown语法](./Other/md语法.md)
-+ [sql语法](./Other/sql语法.md)
++ [git使用](./编程/git使用.md)
++ [cmd使用](./编程/cmd使用.md)
++ [markdown语法](./编程/md语法.md)
++ [sql语法](./编程/sql语法.md)
