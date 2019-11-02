@@ -13,7 +13,7 @@
 这种方式一般用来在javascript中访问model中的数据
 + 3.model中的数据迭代
 使用th:each来循环迭代，如
-```js
+```thymeleafiterateexpressions
 <tr th:each="room:${data.map.get('rooms')}">
     <td th:text="${room.roomname}"></td>
     <td th:text="${room.description}"></td>
@@ -25,7 +25,7 @@
 person作为迭代元素来使用，这样在下面的元素中就可以通过${person.*}来获取对象的属性了。
 
 + 4.数据判断
-```js
+```thymeleaftemplatesexpressions
 <div th:if="${not #lists.isEmpty(people)}">
     .........省略......
 </div>
